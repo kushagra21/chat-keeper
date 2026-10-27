@@ -1,0 +1,27 @@
+{
+  "name": "chat-keeper",
+  "version": "0.1.0",
+  "description": "Turn a WhatsApp chat export into a clean, searchable archive (HTML or PDF), entirely in your browser.",
+  "scripts": {
+    "build:archive": "vite build -c vite.archive.config.ts",
+    "dev": "npm run build:archive && vite",
+    "build": "npm run build:archive && tsc --noEmit && vite build && cp dist/index.html dist/chat-keeper.html",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "author": "Kushagra Sinha",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@noble/hashes": "^2.4.0",
+    "@zip.js/zip.js": "^2.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vite-plugin-singlefile": "^2.3.4",
+    "vitest": "^5.0.5"
+  },
+  "private": true
+}

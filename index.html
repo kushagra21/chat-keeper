@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Turn a WhatsApp chat export into a clean, searchable archive or PDF, with photos inline. Runs entirely in your browser; nothing is uploaded.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='10' width='52' height='38' rx='10' fill='%232f5d8a'/%3E%3Cpath d='M18 48l-4 10 14-10z' fill='%232f5d8a'/%3E%3Crect x='16' y='22' width='32' height='4' rx='2' fill='%23fff'/%3E%3Crect x='16' y='31' width='22' height='4' rx='2' fill='%23fff'/%3E%3C/svg%3E">
+    <title>Chat Keeper</title>
+  </head>
+  <body>
+    <div id="landing" class="landing">
+      <header class="hero">
+        <h1>Chat Keeper</h1>
+        <p class="lede">Turn a WhatsApp chat export into a clean, searchable archive, or a PDF with the photos inline.</p>
+        <p class="private"><strong>Your chat never leaves this device.</strong> Everything happens in this browser tab. The page has no server behind it and is blocked from making network requests.</p>
+      </header>
+
+      <section id="drop" class="drop" tabindex="-1">
+        <p class="drop-title">Drop the WhatsApp export here</p>
+        <p class="small">The <code>.zip</code> WhatsApp made, or the chat <code>.txt</code> together with its photos and videos</p>
+        <div class="drop-buttons">
+          <label class="btn primary">Choose files<input id="pick-files" type="file" multiple hidden></label>
+          <label class="btn" id="folder-label">Choose a folder<input id="pick-folder" type="file" webkitdirectory hidden></label>
+          <button id="sample" type="button" class="btn">Try a sample chat</button>
+        </div>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="how">
+        <h2>How to export a chat from WhatsApp</h2>
+        <div class="how-grid">
+          <div>
+            <h3>iPhone</h3>
+            <ol>
+              <li>Open the chat and tap the name at the top.</li>
+              <li>Scroll down and tap <b>Export Chat</b>.</li>
+              <li>Choose <b>Attach Media</b> to keep photos and videos.</li>
+              <li>Save the zip to Files, or AirDrop it to your computer.</li>
+            </ol>
+          </div>
+          <div>
+            <h3>Android</h3>
+            <ol>
+              <li>Open the chat and tap <b>⋮</b> › <b>More</b> › <b>Export chat</b>.</li>
+              <li>Choose <b>Include media</b>.</li>
+              <li>Save it to Drive or Files, or send it to your computer.</li>
+            </ol>
+          </div>
+        </div>
+        <p class="small">WhatsApp limits how many messages and how much media one export can hold. Very long chats may come out shortened; that happens in WhatsApp, before Chat Keeper sees the file.</p>
+      </section>
+
+      <section class="how">
+        <h2>What you get</h2>
+        <ul class="features">
+          <li><b>A readable chat</b> with photos, videos, voice notes and documents in place.</li>
+          <li><b>Search</b> across every message, filter by person, jump to any date.</li>
+          <li><b>An offline archive</b>: a zip with a page that opens in any browser, every file byte for byte, and the original text.</li>
+          <li><b>A PDF</b> of the whole chat or a date range, with photos inline and page numbers.</li>
+          <li><b>SHA-256 checksums</b> of the original export and every file, for records and disputes.</li>
+        </ul>
+      </section>
+
+      <footer class="foot small">
+        <a href="chat-keeper.html" download>Download Chat Keeper</a> to use it offline (one file, open it in any browser) ·
+        <a href="https://github.com/kushagra21/chat-keeper">Source code</a> · MIT licence ·
+        Not affiliated with WhatsApp or Meta.
+      </footer>
+    </div>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
