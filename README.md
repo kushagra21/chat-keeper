@@ -59,7 +59,7 @@ npm run build    # dist/index.html, one self-contained file
 - `src/export.ts` writes archives; `src/viewer/print.ts` lays out the PDF.
 - `scripts/make-sample.py` builds the made-up sample chat.
 
-Pushing to `main` runs the tests and deploys to GitHub Pages.
+Pushing to `main` runs the tests and deploys to GitHub Pages. What has and hasn't been tested so far is in [docs/STATUS.md](docs/STATUS.md).
 
 ## Licence
 
