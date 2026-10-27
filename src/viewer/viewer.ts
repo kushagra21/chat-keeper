@@ -66,6 +66,13 @@ export function mountViewer(root: HTMLElement, opts: ViewerOptions): Viewer {
       img.addEventListener('error', () => img.replaceWith(fileCard(name, url)), { once: true });
       return img;
     }
+    if (kind === 'video' && /-GIF-/i.test(name)) {
+      // WhatsApp saves GIFs as short silent videos; play them like GIFs.
+      const v = el('video', { src: url, autoplay: '', loop: '', muted: '', playsinline: '', class: 'gif' });
+      v.muted = true;
+      v.addEventListener('click', () => openLightbox(name, url, id));
+      return v;
+    }
     if (kind === 'video') {
       const v = el('video', { src: url, controls: '', preload: 'metadata', playsinline: '' });
       v.addEventListener('error', () => v.replaceWith(fileCard(name, url)), { once: true });

@@ -53,6 +53,39 @@ describe('iPhone exports', () => {
   });
 });
 
+describe('iPhone exports with two-digit years (shapes from a real export, names changed)', () => {
+  const text = [
+    `[02/06/25, 10:45:14${NNBSP}AM] Weekend Plans: ${LRM}Messages and calls are end-to-end encrypted.`,
+    `[02/06/25, 10:45:14${NNBSP}AM] Sam Lee: ${LRM}Sam Lee created group “Weekend Plans”`,
+    `[02/06/25, 10:45:15${NNBSP}AM] Weekend Plans: ${LRM}Sam Lee added you`,
+    `[03/06/25, 10:01:21${NNBSP}AM] Jo: ${LRM}<attached: 00000043-STICKER-2025-06-03-10-01-21.webp>`,
+    `[09/11/25, 9:18:55${NNBSP}PM] Jo: ${LRM}<attached: 00000140-GIF-2025-11-09-21-18-55.mp4>`,
+    `[10/11/25, 8:00:00${NNBSP}PM] Sam Lee: ${LRM}Voice call, ${LRM}${LRM}9 min ${LRM}• ${LRM}3 joined`,
+    `[11/11/25, 8:00:00${NNBSP}PM] Weekend Plans: ${LRM}Your security code with Jo changed.`,
+  ].join('\r\n');
+  const chat = parseChat(text);
+
+  it('reads the dates and times', () => {
+    expect(chat.dateOrder).toBe('DMY');
+    expect(iso(chat.messages[0].ts)).toBe('2025-06-02T10:45:14');
+    expect(iso(chat.messages[4].ts)).toBe('2025-11-09T21:18:55');
+  });
+
+  it('treats group events as system lines, even when sent under a person', () => {
+    expect(chat.messages.slice(0, 3).every((m) => m.sender === null)).toBe(true);
+    expect(chat.messages[1].text).toBe('Sam Lee created group “Weekend Plans”');
+    expect(chat.messages[6].sender).toBeNull();
+    expect(chat.senders).toEqual(['Jo', 'Sam Lee']);
+  });
+
+  it('keeps stickers, GIFs and call summaries', () => {
+    expect(chat.messages[3].media).toBe('00000043-STICKER-2025-06-03-10-01-21.webp');
+    expect(mediaKind(chat.messages[3].media!)).toBe('sticker');
+    expect(chat.messages[4].media).toBe('00000140-GIF-2025-11-09-21-18-55.mp4');
+    expect(chat.messages[5]).toMatchObject({ sender: 'Sam Lee', text: 'Voice call, 9 min • 3 joined' });
+  });
+});
+
 describe('Android exports', () => {
   const text = [
     `1/5/23, 10:22 AM - Messages and calls are end-to-end encrypted. No one outside of this chat can read them.`,
